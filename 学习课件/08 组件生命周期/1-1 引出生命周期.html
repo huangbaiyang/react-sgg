@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>引出生命周期</title>
+  </head>
+
+  <script
+  type="text/javascript"
+  src="../../依赖文件/react.development.js"
+></script>
+
+  <script
+    type="text/javascript"
+    src="../../依赖文件/react-dom.development.js"
+  ></script>
+
+  <script type="text/javascript" src="../../依赖文件/babel.min.js"></script>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const root = ReactDOM.createRoot(document.getElementById("root"))//报 错？
+
+      class Life extends React.Component {
+        state = {
+          opacity: 1,
+        };
+
+        death = () => {
+          root.unmount(document.getElementById("container"));
+        }; //卸载指定节点
+
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            let { opacity } = this.state;
+            opacity -= 0.1;
+            if (opacity <= 0) opacity = 1;
+            this.setState({
+              opacity,
+            });
+          }, 200);
+        }
+
+        componentWillUnmount() {
+          clearInterval(this.timer);
+        }
+
+        render() {
+          return (
+            <div>
+              <h1 style={{ opacity: this.state.opacity }}>React学不会咋办?</h1>
+              <button onClick={this.death}>不活了!!!</button>
+            </div>
+          );
+        }
+      }
+      root.render(<Life />)
+    </script>
+  </body>
+</html>

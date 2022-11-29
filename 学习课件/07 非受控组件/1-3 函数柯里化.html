@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <script type="text/javascript" src="../../js/react.development.js"></script>
+  <script
+    type="text/javascript"
+    src="../../js/react-dom.development.js"
+  ></script>
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <body>
+    <!-- 高阶函数 ： 当该函数被调用时接收的是一个函数作为参数，或者返回值是一个函数时，该函数称为高阶函数 -->
+    <!-- 函数柯里化 ： 通过函数调用继续返回函数的形式，实现多次传入参数，最后一次处理的函数编码形式 -->
+    <div id="test"></div>
+    <script type="text/babel">
+      const root = ReactDOM.createRoot(document.getElementById("test"));
+      class Login extends React.Component {
+        state = {
+          username: "",
+          password: "",
+        };
+
+        handleSubmit = (event) => {
+          event.preventDefault();
+          const { username, password } = this.state;
+          alert("你输入的用户名是" + username + "," + "用户密码是" + password);
+        };
+
+        // //高阶函数形式
+        // saveFormData = (dataType) => {
+        //   console.log("外层",this);
+        //   return (event) => {
+        //     console.log("里层",this);
+        //     this.setState({
+        //       [dataType]: event.target.value,
+        //     });
+        //   };
+        // };
+
+        //普通函数形式
+        saveFormData = (dataType,event) => {
+          console.log("外层",this);
+          this.setState({
+            [dataType] : event.target.value,
+          })
+        };
+
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                // onChange={this.saveFormData("username")}//函数柯里化形式，this指向组件本身
+                onChange={(event) => this.saveFormData("username",event)}//不需要函数柯里化可实现相同功能
+                name="username"
+              />
+              <input
+                type="password"
+                // onChange={this.saveFormData("password")}//函数柯里化形式
+                onChange={(event) => this.saveFormData("password",event)}//不需要函数柯里化可实现相同功能
+                name="password"
+              />
+              <button>登录</button>
+            </form>
+          );
+        }
+      }
+      root.render(<Login />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/javascript" src="../js/prop-types.min.js"></script>
+
+  <body>
+    <div id="root"></div>
+    <div id="aaaa"></div>
+    <div id="dddd"></div>
+    <script type="text/babel">
+      class Person extends React.Component {
+        constructor(props) {
+          super(props);
+          console.log(this.props);//在constructor使用props前必须接收props并传入super里
+        }
+        render() {
+          // this.props.name =" jerry1"  //报错：props属性是只读属性，不可以修改
+          const { name, age, sex } = this.props;
+
+          return (
+            <ul>
+              <li>名字：{name}</li>
+              <li>年龄：{age}</li>
+              <li>性别：{sex}</li>
+            </ul>
+          );
+        }
+        static propTypes = {
+          name: PropTypes.string.isRequired,
+          age: PropTypes.number,
+          speak: PropTypes.func,
+        };
+        static defaultProps = {
+          sex: "不男不女",
+        };
+      }
+      const props = { name: "lucy", age: "18", sex: "女", speak() {} };
+    //   ReactDOM.render(
+    //     <Person name="jerry" age="19" sex="男" />,
+    //     document.getElementById("root")
+    //   );
+    //   ReactDOM.render(
+    //     <Person name="jack" age={19} />,
+    //     document.getElementById("aaaa")
+    //   );
+      ReactDOM.render(<Person {...props} />, document.getElementById("dddd"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用js创建虚拟DOM</title>
+
+    <script
+      type="text/javascript"
+      src="../../依赖文件/react.development.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="../../依赖文件/react-dom.development.js"
+    ></script>
+
+    <script type="text/javascript" src="../../依赖文件/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div id="test"></div>
+    <div id="box"></div>
+    <!-- <div id="div1"></div> -->
+    <script type="text/javascript">
+      // //第一步创建标签元素节点
+      // var elem = document.createElement("p");
+      // //第二步创建文本节点
+      // var content = document.createTextNode("Hello,BigSpinach!");
+      // //第三步将文本添加到所创建的标签中
+      // elem.appendChild(content);
+      // //第四步，将创建的元素添加到页面中
+      // document.getElementById("div1").appendChild(elem);
+
+      // let btn = document.createElement("button");
+      // let content = document.createTextNode("点击暴富+1亿");
+      // btn.appendChild(content);
+      // document.getElementById("test").appendChild(btn);
+
+      //第二种方式：document.write()
+      // document.write("<h1>知识就是力量</h1>");
+      // document.write("<p>文章阅读</p>");
+
+      //第二种方式:innerHTML里写入标签
+      // let box = document.getElementById("box");
+      // box.innerHTML = "<ul><li>香蕉</li><li>苹果</li><li>橙</li></ul>";
+
+      // // React框架下创建React的元素element（也叫VDOM 或者 组件）
+      // 1、创建一个虚拟DOM
+      // let vdom = React.createElement(
+      //   "h1",
+      //   { id: "atguigu" },
+      //   React.createElement("span", null, "hello,react")
+      // );
+      // 2.让react虚拟DOM-VDOM转为真实DOM,渲染到页面
+      // ReactDOM.render(vdom, document.getElementById("test"));
+    </script>
+
+    <script type="text/babel">
+      // 新的React框架下(需要babel编译)创建React的元素element（也叫VDOM虚拟DOM 或者 组件）
+      const root = ReactDOM.createRoot(document.getElementById("test"));
+      function VDOM() {
+        return (
+          <div>
+            <h1>
+              <span>hello,react</span>
+              </h1>
+            </div>
+        )
+      }
+      root.render(<VDOM />);
+    </script>
+  </body>
+</html>

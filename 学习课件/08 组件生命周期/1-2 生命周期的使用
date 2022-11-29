@@ -1,0 +1,2 @@
+重要的钩子：render  componentDidMount  componentWillUnmount
+即将废弃的钩子：componentWillMount   componentWillReceiveProps   componentWillUpdate

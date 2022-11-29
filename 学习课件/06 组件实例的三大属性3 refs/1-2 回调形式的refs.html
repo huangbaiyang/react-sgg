@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <script type="text/javascript" src="../../js/react.development.js"></script>
+  <script
+    type="text/javascript"
+    src="../../js/react-dom.development.js"
+  ></script>
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <body>
+    <div id="test"></div>
+    <script type="text/babel">
+      const root = ReactDOM.createRoot(document.getElementById("test"));
+      class App extends React.Component {
+        state = {
+          isHot: true,
+        };
+        showInfo = () => {
+          const { isHot } = this.state;
+          const { input1 } = this;
+          console.log(input1); //回调形式的ref里，参数指的就是所在节点本身
+          alert(input1.value);
+        };
+
+        showRightMsg = () => {
+          console.log(this.input2);
+          alert(this.input2.value);
+        };
+
+        changeWeather = () => {
+          const { isHot } = this.state;
+          this.setState({
+            isHot: !isHot,
+          });
+        };
+
+        saveInput = (c) => {//由于ref在更新时会被执行两次，一次null，一次传入DOM元素，写成class绑定的函数避免这种问题，但大多数情况下没必要。
+          this.input1 = c;
+          console.log("@", c);
+        };
+
+        render() {
+          const { isHot } = this.state;
+          return (
+            <div>
+              <h2>今天天气很{isHot ? "炎热" : "凉爽"}</h2>
+              {/*<input ref={(c) =>{this.input1 = c; console.log("@",c)} } type="text" placeholder="我是左侧信息" />; 写成内联形式的回调*/}
+              <input ref={this.saveInput} type="text" />
+              <input
+                onBlur={this.showRightMsg}
+                ref={(c) => (this.input2 = c)}
+                type="text"
+                placeholder="失去焦点提示信息"
+              />
+              <button ref="button111" onClick={this.showInfo}>
+                点我提示左侧信息
+              </button>
+              <button onClick={this.changeWeather}>点我改变天气</button>
+            </div>
+          );
+        }
+      }
+      root.render(<App />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>函数式组件</title>
+    <!-- 引入核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom,用于支撑react操作DOM -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js-->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+  </head>
+
+  <body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+    <script type="text/babel">
+      //1.定义一个函数式组件
+      // function MyComponent() {
+      //     return <h2>我是用函数定义的组件（适用于简单组件的定义）</h2>
+      // }
+      const MyComponent = () => {
+        console.log(this);//返回undefined，原因：在babel编译后开启严格模式，this在函数中丢失，不再指向window
+        return <h2>我是用函数定义的组件(适用于简单组件的定义)</h2>}; //注意：函数式组件名字首字母必须大写作为标签节点被babel识别
+      ReactDOM.render(<MyComponent />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

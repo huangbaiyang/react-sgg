@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>state</title>
+  </head>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <body>
+    <div id="test"></div>
+    <script type="text/babel">
+      //1、定义一个Weather组件
+      class Weather extends React.Component {
+        //初始化状态
+        state = { isHot: true }; //state中存储的是一个对象；
+        render() {
+          return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? "炎热" : "凉爽"}</h1>
+        }
+        //组件类中定义的事件回调，必须写成赋值语句 + 箭头函数，可以避免this为undefined的问题
+        changeWeather = () => {
+          // console.log(this);
+          const isHot = this.state.isHot;
+          this.setState({ isHot: !isHot }); //使用setState()为组件实例对象this设置改动的状态：取反并赋值给isHot属性
+        };
+      }
+      //2、渲染组件到页面
+      ReactDOM.render(<Weather />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsx的语法规则</title>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+</head>
+<style>
+    .title {
+        background-color: red;
+    }
+</style>
+
+<body>
+    <div id="test"></div>
+    <script type="text/babel">
+        const data = 'Hello,React'
+        const VDOM = (<div>
+            <h1 className="title" style={{ color: 'white', fontSize: '60px' }}>{data}</h1>
+            <h2>狗屎婷</h2>
+            <input type="text"/>
+            {/*<peiqi>是一头猪</peiqi>*/}
+        </div>)
+        ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+    <!-- 
+        jsx的语法规则：
+        1、创建虚拟DOM，不能加引号；
+        2、标签中混入js表达式，用{}分隔符
+        3、标签中的样式类名要用className指定
+        4、标签中的内联样式要用style={{属性：'属性值'}}，注意属性名中带符号的（如—）要采用驼峰命名法；
+        5、只能有一个root根标签
+        6、标签必须闭合
+        7、关于标签首字母
+           1、首字母小写：则React回去寻找html同名标签：若找到，则转为html同名元素；若找不到，则报错。
+           2、首字母大写：则React回去寻找同名的组件：若找到，则使用组件；若找不到，则报错。
+     -->
+</body>
+
+</html>
